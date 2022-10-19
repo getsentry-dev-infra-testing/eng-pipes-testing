@@ -13,6 +13,8 @@ concurrency:
 
 jobs:
   testing:
+      # NOTE: This `name` is important! Eng-pipes is hardcoded to this
+      # value and matches the check created in the getsentry/getsentry repo.
       name: getsentry required checks
       runs-on: ubuntu-22.04
       steps:
