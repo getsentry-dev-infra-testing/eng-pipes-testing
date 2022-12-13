@@ -1,6 +1,6 @@
 # This action will run a check with the name "getsentry required checks"
 # which is used by eng-pipes to determine when a commit is ready to push to.
-name: only frontend changes
+name: Make a frontend only change
 on:
   workflow_dispatch:
   push:
@@ -18,10 +18,15 @@ jobs:
       name: getsentry required checks
       runs-on: ubuntu-22.04
       steps:
-        - name: Echo Name
-          run: echo "${{ github.workflow }} @ ${{ github.head_ref || github.run_id }}"
-        - name: Sleep
-          run: |
-            echo "Sleeping for 2s"
-            sleep 2s
-            echo "Done."
+        - uses: actions/github-script@v6
+          with:
+            retries: 3
+            script: |
+              github.rest.checks.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: "only frontend changes",
+                head_sha: context.sha,
+                status: 'completed',
+                conclusion: 'success',
+              });
