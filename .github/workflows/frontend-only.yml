@@ -1,6 +1,6 @@
 # This action will run a check with the name "getsentry required checks"
 # which is used by eng-pipes to determine when a commit is ready to push to.
-name: Testing Commit Check Run
+name: only frontend changes
 on:
   workflow_dispatch:
   push:
