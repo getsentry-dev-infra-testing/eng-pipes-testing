@@ -3,6 +3,11 @@
 name: Make a frontend only change
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - fe-nudge
 
 concurrency:
   group: ${{ github.workflow }} @ ${{ github.head_ref || github.run_id }}
