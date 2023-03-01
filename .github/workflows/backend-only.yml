@@ -1,0 +1,29 @@
+# This action will run a check with the name "getsentry required checks"
+# which is used by eng-pipes to determine when a commit is ready to push to.
+name: Testing Commit Check Run
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - be-nudge
+
+concurrency:
+  group: ${{ github.workflow }} @ ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  testing:
+      # NOTE: This `name` is important! Eng-pipes is hardcoded to this
+      # value and matches the check created in the getsentry/getsentry repo.
+      name: getsentry required checks
+      runs-on: ubuntu-22.04
+      steps:
+        - name: Echo Name
+          run: echo "${{ github.workflow }} @ ${{ github.head_ref || github.run_id }}"
+        - name: Sleep
+          run: |
+            echo "Sleeping for 2s"
+            sleep 2s
+            echo "Done."
