@@ -1,0 +1,32 @@
+format_version: 10
+pipelines:
+    eng-pipes-testing:
+        group: eng-pipes-testing
+        lock_behavior: unlockWhenFinished
+        materials:
+            eng-pipes-testing_repo:
+                git: git@github.com:getsentry-dev-infra-testing/eng-pipes-testing.git
+                shallow_clone: true
+                destination: eng-pipes-testing
+                branch: main
+        stages:
+            - log:
+                  fetch_materials: true
+                  approval:
+                      type: manual
+                  jobs:
+                      log:
+                          timeout: 600 # 10 mins
+                          elastic_profile_id: dicd-mattgaunt-3-cd
+                          tasks:
+                              - script: |
+                                  echo "Hello."
+            - deploy-primary:
+                  fetch_materials: true
+                  jobs:
+                      log:
+                          timeout: 600 # 10 mins
+                          elastic_profile_id: dicd-mattgaunt-3-cd
+                          tasks:
+                              - script: |
+                                  echo "Hello."
