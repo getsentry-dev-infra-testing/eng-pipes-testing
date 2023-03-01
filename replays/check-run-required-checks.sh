@@ -12,5 +12,5 @@ curl \
 -H "X-GitHub-Hook-Installation-Target-Type: integration" \
 -H "X-Hub-Signature: sha1=5d776787027b68995eb80f9f81f671c5c1d41772" \
 -H "X-Hub-Signature-256: sha256=357f91d0296f044fd7815035c81778efddb6836e64c8724630b2a41985e412b8" \
--d @./replays/check-run.json \
+-d @./replays/check-run-required-checks.json \
 http://localhost:3000/webhooks/github
